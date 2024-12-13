@@ -1,65 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Affichage dynamique de messages</title>
+    <style>
+        .message {
+            font-size: 12px; /* Taille par défaut */
+        }
+    </style>
+</head>
+<body>
+
 <?php
-$defaultMsg = "Veuillez choisir un message.";
-$msg = isset($_GET['msg']) ? $_GET['msg'] : null;
-$color = isset($_GET['color']) ? $_GET['color'] : null;
-$size = isset($_GET['size']) ? (int)$_GET['size'] : null;
-$validColors = ['rouge', 'vert', 'bleu'];
+// Récupération des paramètres de l'URL
+ 
+$color = isset($_GET['color']) ? $_GET['color'] : 'black';
+$size = isset($_GET['size']) && is_numeric($_GET['size']) ? $_GET['size'] : 12;
 
-
-echo '<a href="?msg=rouge">Message Rouge</a><br>';
-echo '<a href="?msg=vert">Message Vert</a><br>';
-echo '<a href="?msg=bleu">Message Bleu</a><br>';
-
-if ($msg === 'rouge') {
-    echo "<h1 style='color:red; font-size:15px;'>Ceci est un message rouge.</h1>";
-} elseif ($msg === 'vert') {
-    echo "<h1 style='color:green; font-size:30px;'>Ceci est un message vert.</h1>";
-} elseif ($msg === 'bleu') {
-    echo "<h1 style='color:blue; font-size:50px;'>Ceci est un message bleu.</h1>";
-} elseif ($msg !== null) {
-    echo "<h1 style='color:red;'>Erreur : Message non valide.</h1>";
-} else {
-    echo "<h1>$defaultMsg</h1>";
+// Affichage du message si des paramètres sont fournis
+if (!empty($message)) {
+    echo "<div id='message' style='color: $color; font-size: {$size}px;'>$message</div>";
+}else {
+    echo "<p>Veuillez fournir un message, une couleur et une taille.</p>";
 }
-
-// Afficher le formulaire
-echo '<form method="GET" action="">';
-echo 'Message : <input type="text" name="msg" required><br>';
-echo 'Couleur : <select name="color">
-        <option value="défaut">Defaut</option>
-        <option value="rouge">Rouge</option>
-        <option value="vert">Vert</option>
-        <option value="bleu">Bleu</option>
-      </select><br>';
-echo 'Taille : <input type="number" name="size" min="1" required><br>';
-echo '<input type="submit" value="Soumettre">';
-echo '</form><br>';
-
-// Afficher le message correspondant
-if ($msg && in_array($color, $validColors)) {
-    echo "<h1 style='color:$color; font-size:{$size}px;'>$msg</h1>";
-} elseif ($msg !== null) {
-    echo "<h1 style='color:red;'>Erreur : Couleur non valide.</h1>";
-} else {
-    echo "<h1>$defaultMsg</h1>";
-}
-
-// Afficher les boutons + et -
-echo '<form method="GET" action="">';
-echo '<input type="hidden" name="msg" value="' . htmlspecialchars($msg) . '">';
-echo '<input type="hidden" name="color" value="' . htmlspecialchars($color) . '">';
-echo '<input type="hidden" name="size" value="' . htmlspecialchars($size + 2) . '">';
-echo '<input type="submit" value="+">';
-echo '</form>';
-echo '<form method="GET" action="">';
-echo '<input type="hidden" name="msg" value="' . htmlspecialchars($msg) . '">';
-echo '<input type="hidden" name="color" value="' . htmlspecialchars($color) . '">';
-echo '<input type="hidden" name="size" value="' . htmlspecialchars(max(1, $size - 2)) . '">';
-echo '<input type="submit" value="-">';
-echo '</form><br>';
-
-
-
-
 ?>
 
+<a href="?message=Message%20rouge&color=red&size=15">Rouge 15</a>
+<a href="?message=message%20vert&color=green&size=30">Vert 30</a>
+<a href="?message=message%20bleu&color=blue&size=50">Bleu 50</a>
+
+<form method="GET">
+    <input type="text" name="message" placeholder="Votre message">
+    <input type="text" name="color" placeholder="Couleur">
+    <input type="number" name="size" placeholder="Taille">
+    <button type="submit">Envoyer</button>
+</form>
+
+<button id="increment">+</button>
+<button id="decrement">-</button>
+
+</body>
+</html>

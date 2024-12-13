@@ -1,18 +1,108 @@
 <!doctype html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Web local</title>
-    <link rel="stylesheet" href="./assets/css/main.css">
-</head>
-<body>
-    <h1>bloc1-SLAM</h1>
-    <h2>Documents</h2>
-    <li>
-        <a href="https://github.com/IdrissYac/bloc1/blob/main/documents/td1/question.md">Question</a>
-        <a href="./pages/mention-legales/mention.html">Mention légales</a>
-    </li>
+    <head>
+        <meta charset="utf-8">
+        <title>WebDev</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="./assets/css/main.css">
+    </head>
+    <body>
+        <div class="container">
+            <header>    
+                <div class="header-title">
+                    <h1 id="theme-toggle"><i class="fas fa-sun"></i> Bloc1-SLAM</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="https://github.com/IdrissYac"><i class="fab fa-github"></i> Mon Github</a></li>
+                    </ul>
+                </nav>
+            </header>
+    
+            <main>
+                <h2>Documents</h2>
+                <p class="typing">Voici les documents importants que vous pouvez consulter :</p>
+    
+                <hr>
+                <button id="btnAfficher" onclick="btnToutAfficher()"><i class="fas fa-eye"></i> Tout afficher</button>
+                <button id="btnCacherTout" onclick="btnRienAfficher()"><i class="fas fa-eye-slash"></i> Tout cacher</button>
+                <hr>
+    
+                <div class="folder" onclick="toggleProjects('td1')"><i class="fas fa-folder"></i> TD1</div>
+                <ul id="td1" class="projects">
+                    <li><a href="https://github.com/kenoren/bloc1/blob/main/documents/td1/question.md"><i class="fas fa-file-alt"></i> Question</a></li>
+                </ul>
+    
+                <div class="folder" onclick="toggleProjects('td2')"><i class="fas fa-folder"></i> TD2</div>
+                <ul id="td2" class="projects">
+                    <li><a href="./pages/mention-legales/mention.html"><i class="fas fa-file-alt"></i> Mentions légales</a></li>
+                    <li><a href="./pages/pates-a-crepes/patescrepes.html"><i class="fas fa-utensils"></i> Pates à crèpes</a></li>
+                    <li><a href="./pages/status-juridiques/statusjuridique.html"><i class="fas fa-gavel"></i> Status Juridiques</a></li>
+                </ul>
+    
+                <div class="folder" onclick="toggleProjects('td3')"><i class="fas fa-folder"></i> TD3</div>
+                <ul id="td3" class="projects">
+                    <li><a href="./pages/td3/conseil-gestion.html"><i class="fas fa-hand-holding-usd"></i> Conseil Gestion</a></li>
+                    <li><a href="./pages/td3/web-arena.html"><i class="fas fa-laptop"></i> Web Arena</a></li>
+                </ul>
+    
+                <div class="folder" onclick="toggleProjects('td4')"><i class="fas fa-folder"></i> TD4</div>
+                <ul id="td4" class="projects">
+                    <li><a href="./pages/td4/calculatrice.html"><i class="fas fa-calculator"></i> Calculatrice</a></li>
+                    <li><a href="./pages/td4/toDoList.html"><i class="fas fa-check-square"></i> ToDoList</a></li>
+                </ul>
+    
+                <div class="folder" onclick="toggleProjects('td5')"><i class="fas fa-folder"></i> TD5</div>
+                <ul id="td5" class="projects">
+                    <li><a href="./pages/td5/Font-tester.php"><i class="fas fa-font"></i> FontTester</a></li>
+                    <li><a href="./pages/td5/Lorem-ipsum.php"><i class="fas fa-paragraph"></i> LoremIpsum</a></li>
+                    <li><a href="./pages/td5/Message.php"><i class="fas fa-comment"></i> Message</a></li>
+                    <li><a href="./pages/td5/Table-gen.php"><i class="fas fa-table"></i> TableGen</a></li>
+                </ul>
+    
+            </main>
+    
+            <footer>
+                <p>&copy; 2024 Web local. Tous droits réservés.</p>
+            </footer>
+        </div>
+    </body>
+    
+    <script>
+        // main.js
+
+// Fonction pour afficher/masquer les projets d'un dossier
+function toggleProjects(tdId) {
+    const folder = document.getElementById(tdId);
+    if (folder.style.display === "none" || folder.style.display === "") {
+        folder.style.display = "block";
+    } else {
+        folder.style.display = "none";
+    }
+}
+
+// Fonction pour afficher tout le contenu
+function btnToutAfficher() {
+    const folders = document.querySelectorAll('.projects');
+    folders.forEach(folder => {
+        folder.style.display = 'block';
+    });
+}
+
+// Fonction pour cacher tout le contenu
+function btnRienAfficher() {
+    const folders = document.querySelectorAll('.projects');
+    folders.forEach(folder => {
+        folder.style.display = 'none';
+    });
+}
+
+// Fonction pour basculer entre le mode sombre et clair
+const themeToggleButton = document.getElementById('theme-toggle');
+themeToggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
+
+    </script>
 </body>
 </html>
